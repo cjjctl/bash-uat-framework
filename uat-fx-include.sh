@@ -6,7 +6,6 @@ FAILCOUNT=0
 start(){
     echo "---------------------------------------------"
     echo "starting test suite: $1"
-    # TODO Test that this resets the count.
     PASSCOUNT=0
     FAILCOUNT=0
 }
