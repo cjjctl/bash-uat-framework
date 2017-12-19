@@ -50,6 +50,18 @@ contains(){
     fi
 }
 
+notcontains(){
+    TESTNAME="$1"
+    TEXT="$2"
+    CONTAINS="$3"
+
+    if ! echo "$TEXT" | grep -q -F "$CONTAINS"; then
+        pass "$TESTNAME"
+    else
+        fail "$TESTNAME" "[$TEXT] to not contain [$CONTAINS]" "[$TEXT] contains [$CONTAINS]"
+    fi
+}
+
 matches(){
     TESTNAME="$1"
     TEXT="$2"

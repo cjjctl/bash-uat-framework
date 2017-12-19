@@ -104,6 +104,24 @@ matches 'UAT10' 'This is a sentence that we are testing.' '^This.*blah'
 finish
 
 ############
+### UAT11 - Test notcontains - happy
+############
+start 'UAT11 - Test notcontains - happy Expected: pass 1'
+
+notcontains 'UAT11' 'This is a sentence that we are testing.' 'apples'
+
+finish
+
+############
+### UAT12 - Test notcontains - sad
+############
+start 'UAT12 - Test notcontains - sad Expected: fail 1'
+
+notcontains 'UAT12' 'This is a sentence that we are testing.' 'testing'
+
+finish
+
+############
 ### UAT-X - Test critical failure
 ############
 start 'UAT-X - Test critical failure Expect: output finish then end tests'
