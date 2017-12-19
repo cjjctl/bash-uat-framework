@@ -122,6 +122,24 @@ notcontains 'UAT12' 'This is a sentence that we are testing.' 'testing'
 finish
 
 ############
+### UAT13 - Test notequals - happy
+############
+start 'UAT13 - Test notequals - happy Expect: pass 1'
+
+notequals 'UAT13' 'pears' 'apples'
+
+finish
+
+############
+### UAT14 - Test notequals - sad
+############
+start 'UAT14 - Test notequals - sad Expect: fail 1'
+
+notequals 'UAT14' 'pears' 'pears'
+
+finish
+
+############
 ### UAT-X - Test critical failure
 ############
 start 'UAT-X - Test critical failure Expect: output finish then end tests'

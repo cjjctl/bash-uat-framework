@@ -28,12 +28,26 @@ equals(){
     EXPECTED="$2"
     ACTUAL="$3"
 
-    echo "EXPECTED: [$EXPECTED]"
-    echo "ACTUAL  : [$ACTUAL]"
 
     if [[ "$EXPECTED" == "$ACTUAL" ]]; then
         pass "$TESTNAME"
     else
+        echo "EXPECTED: [$EXPECTED]"
+        echo "ACTUAL  : [$ACTUAL]"
+        fail "$TESTNAME" "$EXPECTED" "$ACTUAL"
+    fi
+}
+
+notequals(){
+    TESTNAME="$1"
+    EXPECTED="$2"
+    ACTUAL="$3"
+
+    if [[ "$EXPECTED" != "$ACTUAL" ]]; then
+        pass "$TESTNAME"
+    else
+        echo "EXPECTED: not[$EXPECTED]"
+        echo "ACTUAL  : [$ACTUAL]"
         fail "$TESTNAME" "$EXPECTED" "$ACTUAL"
     fi
 }
