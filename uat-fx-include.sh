@@ -62,6 +62,12 @@ matches(){
     fi
 }
 
+failcritical(){
+    echo "****** ERROR *****: Experienced critical failure: $2"
+    finish
+    exit 1
+}
+
 finish(){
     echo "******* TESTS COMPLETE "
     echo "passed: $PASSCOUNT"

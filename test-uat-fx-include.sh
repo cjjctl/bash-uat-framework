@@ -103,6 +103,14 @@ matches 'UAT10' 'This is a sentence that we are testing.' '^This.*blah'
 
 finish
 
+############
+### UAT-X - Test critical failure
+############
+start 'UAT-X - Test critical failure Expect: output finish then end tests'
+
+failcritical "This should end this test script"
+
+echo "if you see this, then criticalfailure did not work"
 
 exit 0
 
