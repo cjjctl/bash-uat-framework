@@ -6,6 +6,7 @@ FAILCOUNT=0
 start(){
     echo "---------------------------------------------"
     echo "starting test suite: $1"
+    echo "---------------------------------------------"
     PASSCOUNT=0
     FAILCOUNT=0
 }
@@ -89,14 +90,24 @@ matches(){
 }
 
 failcritical(){
-    echo "****** ERROR *****: Experienced critical failure: $2"
-    finish
+    echo "****** ERROR *****: Experienced critical failure: $1"
     exit 1
 }
 
 finish(){
-    echo "******* TESTS COMPLETE "
-    echo "passed: $PASSCOUNT"
-    echo "failed: $FAILCOUNT"
-    echo "*******"
+    NOEXIT="$1"
+    if [[ "$FAILCOUNT" == "0" ]]; then
+        echo "****** TESTS COMPLETE ******"
+        echo "passed: $PASSCOUNT"
+        echo "failed: $FAILCOUNT"
+        echo "****************************"
+    else
+        echo "!!!!!! TESTS FINISHED WITH FAILURES !!!!!!"
+        echo "passed: $PASSCOUNT"
+        echo "failed: ${FAILCOUNT}***"
+        echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        if [[ "$NOEXIT" != "--noexit" ]]; then
+            exit 1
+        fi
+    fi
 }
