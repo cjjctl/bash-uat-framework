@@ -290,6 +290,65 @@ if ! echo $FINISH_OUT | grep -q "passed: 0"; then
 fi
 
 ############
+### UAT15 - Test JQ happy
+############
+start 'UAT 15 - Test JQ - happy Expect: pass 1'
+
+json=$(cat << 'EOF'
+{"id":"1","b":"one","color":"red"}
+EOF
+)
+
+jqquery="$(cat <<'QUERY'
+select(.id=="1" and .b=="one" and .color=="red")
+QUERY
+)"
+
+jqcompare "UAT15" "$jqquery" "$json"
+
+FINISH_OUT=$(finish --noexit)
+
+if ! echo $FINISH_OUT | grep -q "failed: 0"; then
+    echo "TEST OF uat-fx-include.sh HAS FAILED! LINE: $LINENO"
+    exit 1
+fi
+
+if ! echo $FINISH_OUT | grep -q "passed: 1"; then
+    echo "TEST OF uat-fx-include.sh HAS FAILED! LINE: $LINENO"
+    exit 1
+fi
+
+############
+### UAT16 - Test JQ Not Happy
+############
+start 'UAT 16 - Test JQ - sad Expect: failed 1'
+
+json='{"id":"1","state":"true","color":"red","subobj":{"smell":"rancid","touch":"dont"}}'
+jqquery="$(cat <<'QUERY'
+select(
+    .id=="1" and
+    .state=="true" and
+    .color=="blue" and
+    .taste=="yum" and
+    .subobj.smell=="rancid")
+QUERY
+)"
+
+jqcompare "UAT16" "$jqquery" "$json"
+
+FINISH_OUT=$(finish --noexit)
+
+if ! echo $FINISH_OUT | grep -q "failed: 1"; then
+    echo "TEST OF uat-fx-include.sh HAS FAILED! LINE: $LINENO"
+    exit 1
+fi
+
+if ! echo $FINISH_OUT | grep -q "passed: 0"; then
+    echo "TEST OF uat-fx-include.sh HAS FAILED! LINE: $LINENO"
+    exit 1
+fi
+
+############
 ### UAT-X - Test critical failure
 ############
 start 'UAT-X - Test critical failure Expect: output finish then end tests'
