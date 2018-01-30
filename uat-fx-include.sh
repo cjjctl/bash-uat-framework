@@ -89,6 +89,18 @@ matches(){
     fi
 }
 
+jqcompare(){
+    TESTNAME="$1"
+    JQS="$2"
+    JSON="$3"
+
+    if echo "$JSON" | jq -e "$JQS"; then
+      pass "$TESTNAME"
+    else
+      fail "$TESTNAME" "$JQS" "$(echo "$JSON"|jq '')"
+    fi
+}
+
 failcritical(){
     echo "****** ERROR *****: Experienced critical failure: $1"
     exit 1
